@@ -121,5 +121,11 @@ func (vr *VoteReviser) flush(height uint64, csm CandidateStateManager) error {
 			return err
 		}
 	}
+	log.L().Info("committed revise action",
+		zap.Uint64("height", height), zap.Int("number of cands", len(cands)))
+	for i := range cands {
+		log.L().Info("committed revise action",
+			zap.String("name", cands[i].Name), zap.String("votes", cands[i].Votes.String()))
+	}
 	return nil
 }
