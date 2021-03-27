@@ -4,6 +4,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/iotexproject/go-pkgs/crypto"
 	"github.com/iotexproject/go-pkgs/hash"
+	"github.com/iotexproject/iotex-core/config"
 	"github.com/iotexproject/iotex-proto/golang/iotextypes"
 	"github.com/pkg/errors"
 
@@ -97,6 +98,5 @@ func IsNative(chainID uint32) bool {
 
 // IsRLP returns whether the tx is RLP-encoded or not
 func IsRLP(chainID uint32) bool {
-	// TODO: use a global chain ID
-	return chainID != 0 && chainID == 4689
+	return chainID != 0 && chainID == config.ExternChainID()
 }

@@ -15,8 +15,14 @@ import (
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 
+	"github.com/iotexproject/iotex-core/config"
 	"github.com/iotexproject/iotex-core/test/identityset"
 )
+
+func init() {
+	// register the extern chain ID for test
+	config.SetExternChainID(config.Default.Chain.ExternChainID)
+}
 
 func TestRlpEnvelope(t *testing.T) {
 	require := require.New(t)
