@@ -28,6 +28,8 @@ type (
 		Proto() *iotextypes.ActionCore
 		LoadProto(pbAct *iotextypes.ActionCore) error
 		SetNonce(n uint64)
+		IsRLP() bool
+		Decode([]byte) error
 	}
 
 	envelope struct {
@@ -254,3 +256,11 @@ func (elp *envelope) Hash() hash.Hash256 {
 
 // SetNonce sets the nonce value
 func (elp *envelope) SetNonce(n uint64) { elp.nonce = n }
+
+func (elp *envelope) IsRLP() bool {
+	return false
+}
+
+func (elp *envelope) Decode(sig []byte) error {
+	return nil
+}

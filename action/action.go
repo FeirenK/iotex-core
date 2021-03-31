@@ -15,13 +15,6 @@ import (
 	"github.com/iotexproject/go-pkgs/crypto"
 )
 
-var (
-	// ErrAction indicates error for an action
-	ErrAction = errors.New("action error")
-	// ErrAddress indicates error of address
-	ErrAddress = errors.New("address error")
-)
-
 // Action is the action can be Executed in protocols. The method is added to avoid mistakenly used empty interface as action.
 type Action interface {
 	SetEnvelopeContext(SealedEnvelope)
@@ -41,6 +34,9 @@ type hasDestination interface {
 
 // Sign signs the action using sender's private key
 func Sign(act Envelope, sk crypto.PrivateKey) (SealedEnvelope, error) {
+	if act.IsRLP() {
+		return SealedEnvelope{}, errors.Wrap(ErrAction, "not allowed to sign RLP tx")
+	}
 	sealed := SealedEnvelope{
 		Envelope:  act,
 		srcPubkey: sk.PublicKey(),
